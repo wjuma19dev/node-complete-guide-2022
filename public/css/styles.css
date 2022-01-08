@@ -14,6 +14,24 @@ h1, p {
   margin: 0;
   padding: 0;
 }
+.mt-5 {
+  margin-top: 15px;
+}
+.container {
+  width: 80%; 
+  margin: 0 auto;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.col-12 {
+  width: 100%;
+}
 .main-header {
   height: 56px;
   background-color: #8946A6;

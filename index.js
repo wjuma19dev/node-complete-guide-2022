@@ -7,6 +7,9 @@ const rootDir = require('./util/path');
 const app = express();
 const server = http.createServer(app);
 
+app.set('view engine', 'pug');
+app.set('views', path.join(rootDir, 'views'));
+
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 

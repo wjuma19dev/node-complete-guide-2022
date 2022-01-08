@@ -8,8 +8,12 @@ const router = express.Router();
 const Productos = path.join(__dirname, '../data/productos.json')
 
 router.get('/', (req, res, next) => {
-  const productos = readFileSync(Productos, 'utf8');
-  res.sendFile(path.join(rootDir, 'views', 'shop.html'));
+  const productos = JSON.parse(readFileSync(Productos, 'utf8'));
+  // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
+  res.render('shop', { 
+    docTitle: 'Shop',
+    productos 
+  });
 });
 
 router.post('/add-product', (req, res, next) => {
