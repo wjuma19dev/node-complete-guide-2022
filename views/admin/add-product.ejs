@@ -1,0 +1,39 @@
+<%- include("../partials/head") %>
+
+  <%- include("../partials/navegation") %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mt-4">
+        <h1 class="mb-0">Add product</h1>
+        <p>Create product</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6"> 
+        <form action="/admin/add-product" method="POST">
+          <div class="form-group mb-3">
+            <label style="font-size: 20px;">Title</label>
+            <input class="form-control" name="title" type="text">
+          </div>
+          <div class="form-group mb-3">
+            <label style="font-size: 20px;">Image Url</label>
+            <input class="form-control" name="imageUrl" type="text">
+          </div>
+          <div class="form-group mb-3">
+            <label style="font-size: 20px;">Price</label>
+            <input class="form-control" class="form-control" step="0.001" name="price" type="number">
+          </div>
+          <div class="form-group mb-3">
+            <label style="font-size: 20px;">Description</label>
+            <textarea class="form-control" name="description" id="" cols="30" rows="3"></textarea>
+          </div>
+          <div>
+            <button class="btn btn-primary" type="submit">Add product</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<%- include("../partials/script") %>
