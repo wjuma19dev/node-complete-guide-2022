@@ -13,7 +13,17 @@
           <a class="nav-link <%- docTitle === 'Products' ? 'active' : '' %>" href="/products">Products</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%- docTitle === 'Cart' ? 'active' : '' %>" href="/cart">Cart</a>
+          <a class="nav-link <%- docTitle === 'Cart' ? 'active' : '' %> position-relative" href="/cart">
+            Cart
+            <% if(docTitle === 'Cart') { %>
+             <% if (products.length > 0) { %>
+              <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                <%= products.length %>
+                <span class="visually-hidden">unread messages</span>
+              </span>
+             <% } %>
+            <% } %>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link <%- docTitle === 'Orders' ? 'active' : '' %>" href="/orders">Orders</a>
