@@ -10,19 +10,22 @@
           <a class="nav-link <%- docTitle === 'Shop' ? 'active' : '' %>" href="/">Shop</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%- docTitle === 'Products' ? 'active' : '' %>" href="/cart">Products</a>
+          <a class="nav-link <%- docTitle === 'Products' ? 'active' : '' %>" href="/products">Products</a>
         </li>
         <li class="nav-item">
           <a class="nav-link <%- docTitle === 'Cart' ? 'active' : '' %>" href="/cart">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%- docTitle === 'Orders' ? 'active' : '' %>" href="/order">Order</a>
+          <a class="nav-link <%- docTitle === 'Orders' ? 'active' : '' %>" href="/orders">Orders</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%- docTitle === 'Add product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+          <a class="nav-link <%- docTitle === 'Checkout' ? 'active' : '' %>" href="/checkout">Checkout</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link <%- docTitle === 'Admin products' ? 'active' : '' %>" href="/order">Admin Products</a>
+          <a class="nav-link <%- docTitle === 'Add product' || docTitle === 'Edit product' ? 'active' : '' %>" href="/admin/add-product">Add Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%- docTitle === 'Admin products' ? 'active' : '' %>" href="/admin/products">Admin Products</a>
         </li>
       </ul>
       <span class="navbar-text">

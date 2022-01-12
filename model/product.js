@@ -1,11 +1,15 @@
-const path = require('path');
-const { readFileSync, writeFileSync } = require('fs');
-const Productos = path.join(__dirname, '../data/productos.json');
+const path = require('path'),
+      rootDir = require('../util/path'),
+      _ = require('lodash'),
+      fs = require('fs'),
+      p = path.join(rootDir, 'data', 'productos.json');
+
+const Cart = require('../model/cart');
 
 class Product {
 
-  constructor(t, p, iu, d) {
-    this.id = 1,
+  constructor(i, t, p, iu, d) {
+    this.id = i,
     this.title = t;
     this.price = p;
     this.imageUrl = iu;
@@ -13,36 +17,75 @@ class Product {
   }
 
   save() {
-    return new Promise((resolve, reject) => {
-      try {   
-        const productos = readFileSync(Productos, 'utf8');
-        const productosParse = JSON.parse(productos);
-        const ultimoProducto = productosParse[productosParse.length - 1];
-        this.id = ultimoProducto.id + 1;
-        productosParse.push(this);
-        try {
-          writeFileSync(Productos, JSON.stringify(productosParse, null, 2));
-          resolve(this);
-        } catch (error) {
-          reject('No se pudo guardar el producto');
+    if(!this.id) {
+      fs.readFile(p, 'utf-8', (error, fileContent) => {
+        if(error) {
+          console.log(error);
+          return;
         }
-      } catch (error) {
-        if (error.errno === -4058) {
-          writeFileSync(Productos, JSON.stringify([this], null, 2));
+        const products = JSON.parse(fileContent);
+        const ultimoId = products[products.length - 1].id;
+        this.id = ultimoId+1;
+        products.push(this);
+        fs.writeFile(p, JSON.stringify(products), error => {
+          console.log(error);
+        });
+      });
+    } else {
+      fs.readFile(p, 'utf-8', (error, fileContent) => {
+        if(error) {
+          console.log(error);
+          return;
         }
-      }
-    });
-  }
-
-  static async find() {
-    try {
-      const products = readFileSync(Productos, 'utf8');
-      return JSON.parse(products);
-    } catch (error) {
-      return [];
+        const productId = parseInt(this.id);
+        const products = JSON.parse(fileContent);
+        const productIndex = _.findIndex(products, { id: productId });
+        this.id = productId;
+        products[productIndex] = this;
+        fs.writeFile(p, JSON.stringify(products), error => {
+          console.log(error);
+        });
+      });
     }
   }
 
+  static find(callback) {
+    getProductFromFile(productsParse => {
+      callback(productsParse);
+    });
+  }
+
+  static findById(productId, callback) {
+    getProductFromFile(products => {
+      const product = _.find(products, { id: parseInt(productId) });
+      callback(product);     
+    });
+  }
+
+  static deleteById(productId, callback) {
+    getProductFromFile(products => {
+      const product = _.find(products, { id: parseInt(productId) });
+      const updatedProducts = _.filter(products, p => p.id !== parseInt(productId));
+      fs.writeFile(p, JSON.stringify(updatedProducts, null, 2), error => {
+        if(!error) {
+          Cart.deleteProduct(productId, product.price);
+          callback();
+        }
+      })
+    });
+  }
+  
 }
+
+function getProductFromFile(callback) {
+  fs.readFile(p, 'utf-8', (error, fileContent) => {
+    if(error) {
+      callback([]);
+      return;
+    }
+    callback(JSON.parse(fileContent));
+  });
+}
+
 
 module.exports = Product;

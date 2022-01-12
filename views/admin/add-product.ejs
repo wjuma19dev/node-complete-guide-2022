@@ -4,32 +4,35 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 mt-4">
-        <h1 class="mb-0">Add product</h1>
-        <p>Create product</p>
+      <div class="col-md-12 my-4">
+        <h1 class="mb-0"><%= docTitle %></h1>
+        <!-- <p>Create product</p> -->
       </div>
     </div>
     <div class="row">
       <div class="col-md-6"> 
-        <form action="/admin/add-product" method="POST">
+        <form action="/admin/<%= editing ? 'edit-product' : 'add-product'%>" method="post">
           <div class="form-group mb-3">
             <label style="font-size: 20px;">Title</label>
-            <input class="form-control" name="title" type="text">
+            <input class="form-control" name="title" type="text" value="<%= editing ? product.title : '' %>">
           </div>
           <div class="form-group mb-3">
             <label style="font-size: 20px;">Image Url</label>
-            <input class="form-control" name="imageUrl" type="text">
+            <input class="form-control" name="imageUrl" type="text" value="<%= editing ? product.imageUrl : '' %>">
           </div>
           <div class="form-group mb-3">
             <label style="font-size: 20px;">Price</label>
-            <input class="form-control" class="form-control" step="0.001" name="price" type="number">
+            <input class="form-control" class="form-control" step="0.001" name="price" type="number" value="<%= editing ? product.price : '' %>">
           </div>
           <div class="form-group mb-3">
             <label style="font-size: 20px;">Description</label>
-            <textarea class="form-control" name="description" id="" cols="30" rows="3"></textarea>
+            <textarea class="form-control" name="description" id="" cols="30" rows="3"><%= editing ? product.description : '' %></textarea>
           </div>
           <div>
-            <button class="btn btn-primary" type="submit">Add product</button>
+            <button class="btn btn-primary" type="submit">
+              <%= editing ? 'Update product' : 'Create product' %>
+            </button>
+            <input type="hidden" name="productId" value="<%= editing ? product.id : '' %>">
           </div>
         </form>
       </div>

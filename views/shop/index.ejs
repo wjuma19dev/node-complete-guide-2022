@@ -1,0 +1,53 @@
+
+<%- include("../partials/head") %>
+
+<%- include("../partials/navegation") %>
+
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-12">
+      <h1 class="mb-0 display-4"><%= docTitle %></h1>
+      <p class="lead">List of all products</p>
+    </div>
+  </div>
+  <div class="row">
+
+    <% if(products.length > 0) { %>
+      <% for(product of products) { %>
+      <div class="col-md-3">
+        <div class="card product">
+          <div class="product__image__box">
+            <button class="btn btn-light" disabled><strong>$ <%= product.price %></strong></button>
+            <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.title %>" style="height: 250px;">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= product.title.slice(0, 60) %> <span class="text-dark"> ...</span></h5>
+            <p class="card-text"><%= product.description.slice(0, 60) %> <span class="text-ligth">...</span></p>
+            <div class="d-flex justify-content-between align-items-center">
+
+              <!-- ACTION: Add to cart button-->
+              <%- include("../partials/addToCart") %>
+              
+              <!-- ACTION: Product detail -->
+              <a href="/products/<%= product.id%>" class="mb-0 a">Detail</a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% } else { %>
+    <div class="col-md-6">
+      <div class="alert alert-warning d-flex align-items-center" role="alert">
+        <div>
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          No hay productos para mostrar, <a class="alert-link" href="/admin/add-product">puedes agregar un producto!</a>
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+</div>
+
+<%- include("../partials/script") %>

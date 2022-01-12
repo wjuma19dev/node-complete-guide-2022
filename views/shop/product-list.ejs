@@ -5,31 +5,26 @@
   <div class="container">
     <div class="row mt-3">
       <div class="col-12">
-        <h1 class="mb-0 display-4">Shop</h1>
+        <h1 class="mb-0 display-4"><%= docTitle %></h1>
         <p class="lead">List of all products</p>
       </div>
     </div>
     <div class="row">
 
       <% if(products.length > 0) { %>
-        <% for(product of products) { %>
-        <div class="col-md-3">
-          <div class="card">
-            <img src="<%= product.imageUrl %>" class="card-img-top" alt="<%= product.title %>" style="height: 250px;">
-            <div class="card-body">
-              <h5 class="card-title"><%= product.title.slice(0, 60) %> <span class="text-dark"> ...</span></h5>
-              <p class="card-text"><%= product.description.slice(0, 60) %> <span class="text-ligth">...</span></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <a href="#" class="btn btn-primary">
-                  <i class="bi bi-cart-fill text-light"></i>
-                  Add To Cart</a>
-                <p class="mb-0"><strong class="text-primary"><%= product.price %></strong></p>
-              </div>
+        
+        <ol class="list-group list-group-numbered">
+          <% for(product of products) { %>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"><a href="/products/<%= product.id %>"><%= product.title %></a></div>
+              <%= product.description %>
             </div>
-          </div>
-        </div>
-        <% } %>
-      <% } else { %>
+            <span class="badge bg-primary rounded-pill"><%= product.price %></span>
+          </li>
+          <% } %>
+        </ol>
+        <% } else { %>
       <div class="col-md-6">
         <div class="alert alert-warning d-flex align-items-center" role="alert">
           <div>
@@ -44,3 +39,11 @@
   </div>
   
 <%- include("../partials/script") %>
+
+
+
+
+
+
+
+

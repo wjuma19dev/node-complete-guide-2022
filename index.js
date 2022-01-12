@@ -1,9 +1,12 @@
+require('dotenv').config();
 const http = require('http');
 const express = require('express');
 const errorhandler = require('errorhandler');
+const morgan = require('morgan');
 
 const path = require('path');
 const rootDir = require('./util/path');
+const port = process.env.PORT | 3000;
 
 const app = express();
 const server = http.createServer(app);
@@ -16,7 +19,10 @@ app.set('views', path.join(rootDir, 'views'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-app.use(errorhandler());
+if (process.env.NODE_ENV === "development") {
+  app.use(errorhandler());
+  app.use(morgan('tiny'));
+}
 
 // Static Files EXPRESS
 app.use('/public', express.static(path.join(rootDir, 'public')))
@@ -32,6 +38,6 @@ app.use((req, res, next) => {
 })
 
 server.listen(
-  3000,
-  console.log('Server running on port 3000')
+  port,
+  console.log(`Server running on port ${port}`)
 );

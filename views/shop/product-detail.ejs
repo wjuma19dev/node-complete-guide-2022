@@ -1,0 +1,98 @@
+<%- include("../partials/head") %>
+
+  <%- include("../partials/navegation") %>
+
+  <div class="wrapper">
+    <div class="breadcrumb-wrapper">
+        <div class="breadcrumb-area breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcrumb-content text-center">
+                            <h1 class="breadmome-name breadcrumbs-title"><%= product.title.slice(0, 60) %> ...</h1>             
+                            <nav class="" role="navigation" aria-label="breadcrumbs">
+                                <ul class="breadcrumb-list">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Sport & Outdoor</a><span>Lorem Ipsum is simply dummy text</span></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main>
+        <div id="shopify-section-product-template" class="shopify-section">
+            <div class="single-product-area mt-80 mb-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="product-details-large" id="ProductPhoto">
+                                <img 
+                                    id="ProductPhotoImg" 
+                                    class="product-zoom w-100" 
+                                    data-image-id="" alt="12. Aliexpress dropshipping by oberlo" 
+                                    data-zoom-image="http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_1024x1024.jpg?v=1544416552" 
+                                    src="<%= product.imageUrl %>">
+
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="single-product-content">
+                                <form action="/cart" method="post" class="shopify-product-form">
+                                    <input type="hidden" name="productId" value="<%= product.id %>" />
+                                    <div class="product-details">
+                                        <h1 class="single-product-name">Lorem Ipsum is simply dummy text</h1>
+                                        <div class="single-product-reviews">
+                                            <span class="shopify-product-reviews-badge" data-id="1912078270534"></span>
+                                        </div>
+                                        <div class="product-sku">SKU: <span class="variant-sku">YQT71020193</span></div>
+                                        <div class="single-product-price">
+                                            <div class="product-discount"><span  class="price" id="ProductPrice"><span class=money><%= product.price %></span></span></div>
+                                        </div>
+                                        <div class="product-info"><%= product.description %></div>
+                      
+                                        <div class="single-product-action">
+                                            <div class="product-variant-option"> 
+                                                <select name="id" id="productSelect" class="product-single__variants" style="display:none;">   
+                                                    <option  selected="selected"  data-sku="YQT71020193" value="19506517377094">Default Title - <span class=money>$20.66 USD</span></option>
+                                
+                                                </select>
+                                            </div>
+                                            <style>.product-variant-option .selector-wrapper{display: none;}</style>
+                                            <div class="product-add-to-cart">
+                                                <span class="control-label">Quantity</span>
+                                                <div class="cart-plus-minus">
+                                                    <input class="cart-plus-minus-box" type="number" step="1" name="quantity" value="1">
+                                                </div>
+                                                <div class="add">
+
+                                                    <!-- Add to cart button -->
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="bi bi-cart-fill text-light"></i>
+                                                        Add To Cart
+                                                    </button>
+
+                                                    <!-- Add to favorite button -->
+                                                    <button class="btn btn-primary">
+                                                        <i class="bi bi-heart text-light"></i>
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                           
+                                        </div>                                                        
+                                    </div>
+                                </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </main>
+</div>
+
+<%- include("../partials/script") %>     
