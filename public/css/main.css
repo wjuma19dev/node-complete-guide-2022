@@ -11,19 +11,25 @@
 }
 
 .btn-primary {
-    background: #008bff;
-    border: 0;
-    border-bottom: 3px solid #0680e5;
-    color: #fff;
-    box-shadow: none;
-    padding: 0 30px;
-    border-radius: 3px;
-    font-weight: 400;
-    cursor: pointer;
-    font-size: 16px;
-    text-transform: capitalize;
-    height: 50px;
-    line-height: 50px;
+  background: #008bff;
+  border-bottom: 3px solid #0680e5;
+  color: #fff;
+   
+}
+
+.btn.btn-primary,
+.btn.btn-danger,
+.btn.btn-success {
+  border: 0;
+  box-shadow: none;
+  padding: 0 30px;
+  border-radius: 3px;
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 16px;
+  text-transform: capitalize;
+  height: 50px;
+  line-height: 50px;
 }
 
 .btn-primary:hover {

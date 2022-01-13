@@ -8,6 +8,8 @@ const path = require('path');
 const rootDir = require('./util/path');
 const port = process.env.PORT | 3000;
 
+const mongoose = require('mongoose');
+
 const app = express();
 const server = http.createServer(app);
 
@@ -37,7 +39,12 @@ app.use((req, res, next) => {
   });
 })
 
-server.listen(
-  port,
-  console.log(`Server running on port ${port}`)
-);
+
+mongoose.connect('mongodb://localhost:27017/test')
+  .then(() => {
+    server.listen(
+      port,
+      console.log(`Server running on port ${port}`)
+    );
+  })
+  .catch(error => console.log(error));
