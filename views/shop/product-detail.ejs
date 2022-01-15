@@ -12,8 +12,8 @@
                             <h1 class="breadmome-name breadcrumbs-title"><%= product.title.slice(0, 60) %> ...</h1>             
                             <nav class="" role="navigation" aria-label="breadcrumbs">
                                 <ul class="breadcrumb-list">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">Sport & Outdoor</a><span>Lorem Ipsum is simply dummy text</span></li>
+                                    <li><a href="/">Shop</a></li>
+                                    <li><a href="/products">Products</a><span><%= product.title %></span></li>
                                 </ul>
                             </nav>
                         </div>
@@ -43,11 +43,11 @@
                                 <form action="/cart" method="post" class="shopify-product-form">
                                     <input type="hidden" name="productId" value="<%= product.id %>" />
                                     <div class="product-details">
-                                        <h1 class="single-product-name">Lorem Ipsum is simply dummy text</h1>
+                                        <h1 class="single-product-name"><%= product.title %></h1>
                                         <div class="single-product-reviews">
                                             <span class="shopify-product-reviews-badge" data-id="1912078270534"></span>
                                         </div>
-                                        <div class="product-sku">SKU: <span class="variant-sku">YQT71020193</span></div>
+                                        <div class="product-sku">ID: <span class="variant-sku"><%= product.id %></span></div>
                                         <div class="single-product-price">
                                             <div class="product-discount"><span  class="price" id="ProductPrice"><span class=money><%= product.price %></span></span></div>
                                         </div>

@@ -9,6 +9,7 @@ const rootDir = require('./util/path');
 const port = process.env.PORT | 3000;
 
 const mongoose = require('mongoose');
+const User = require('./model/user');
 
 const app = express();
 const server = http.createServer(app);
@@ -20,6 +21,15 @@ app.set('views', path.join(rootDir, 'views'));
 // Body Parser EXPRESS
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+
+app.use((req, res, next) => {
+  User.findById('61e210ae50cd68a6a53b90cb')
+    .then(user => {
+      req.user = user;
+      next();
+    })
+    .catch(console.log)
+});
 
 if (process.env.NODE_ENV === "development") {
   app.use(errorhandler());
@@ -40,11 +50,19 @@ app.use((req, res, next) => {
 })
 
 
-mongoose.connect('mongodb://localhost:27017/test')
+mongoose.connect('mongodb+srv://wjuma19dev:CwPjwShIVokPAxQY@cluster0.kzzrx.mongodb.net/shopify')
   .then(() => {
+    // const user = new User({
+    //   name: 'wilson juma',
+    //   email: 'wjuma19dev@gmail.com',
+    //   cart: { items: [] }
+    // })
+    // user.save();
     server.listen(
       port,
       console.log(`Server running on port ${port}`)
     );
   })
   .catch(error => console.log(error));
+
+

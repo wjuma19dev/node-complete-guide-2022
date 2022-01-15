@@ -9,9 +9,12 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = (req, res, next) => {
   const { title, price, imageUrl, description } = req.body;
-  const product = new Product(null, title, price, imageUrl, description);
-  product.save();
-  res.redirect('/');
+  const product = new Product({title, price, imageUrl, description});
+  product.save()
+    .then(produc => {
+      res.redirect('/');
+    })
+    .catch(error => console.log(error));
 }
 
 exports.getEditProduct = (req, res, next) => {
@@ -20,35 +23,43 @@ exports.getEditProduct = (req, res, next) => {
   if (!editMode) {
     res.redirect('/');
   }
-  Product.findById(productId, product => {
-    res.render('admin/add-product', {
-      docTitle: 'Edit product',
-      editing: editMode,
-      product
+  Product.findById(productId)
+    .then(product => {
+      res.render('admin/add-product', {
+        docTitle: 'Edit product',
+        editing: editMode,
+        product
+      });
     });
-  });
 }
 
 exports.postEditProduct = (req, res, next) => {
   const { productId } = req.body;
   const { title, imageUrl, price, description } = req.body;
-  const product = new Product(productId, title, price, imageUrl, description);
-  product.save();
-  res.redirect('/admin/products');
+  
+  Product.findByIdAndUpdate(productId, {  title, imageUrl, price, description }, { new: true })
+    .then(product => {
+      console.log(product);
+      res.redirect('/admin/products');
+    });
+
 }
 
 exports.postDeleteProduct = (req, res, next) => {
   const { productId } = req.body;
-  Product.deleteById(productId, () => {
-    res.redirect('/admin/products');
-  });
+  Product.findByIdAndRemove(productId)
+    .then(product => {
+      console.log(product);
+        res.redirect('/admin/products');
+    });
 }
 
 exports.getProducts = (req, res, next) => {
-  Product.find(products => {
-    res.render('admin/products', {
-      docTitle: 'Admin products',
-      products
-    })
-  });
+  Product.find()
+    .then(products => {
+      res.render('admin/products', {
+        docTitle: 'Admin products',
+        products
+      })
+    });
 }
