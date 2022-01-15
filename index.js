@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 app.use((req, res, next) => {
-  User.findById('61e210ae50cd68a6a53b90cb')
+  User.findById('61e229751ea70a0cf9d741ee')
     .then(user => {
       req.user = user;
       next();
@@ -52,12 +52,18 @@ app.use((req, res, next) => {
 
 mongoose.connect('mongodb+srv://wjuma19dev:CwPjwShIVokPAxQY@cluster0.kzzrx.mongodb.net/shopify')
   .then(() => {
-    // const user = new User({
-    //   name: 'wilson juma',
-    //   email: 'wjuma19dev@gmail.com',
-    //   cart: { items: [] }
-    // })
-    // user.save();
+    User.findOne({ _id: '61e229751ea70a0cf9d741ee'})
+      .then(userDB => {
+        if(!userDB) {
+          const user = new User({
+            name: 'wilson juma',
+            email: 'wjuma19dev@gmail.com',
+            cart: { items: [] }
+          })
+          user.save();
+        }
+      })
+      .catch(error => console.log(error));
     server.listen(
       port,
       console.log(`Server running on port ${port}`)
