@@ -7,6 +7,21 @@
       <div class="col-12">
         <h1 class="mb-0 display-4"><%= docTitle %></h1>
         <!-- <p class="lead">Welcom to Shopify</p> -->
+
+        <ol class="list-group list-group-numbered">
+          <% orders.forEach( order => { %>
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold">Order: <%= order._id %></div>
+              <% order.products.forEach(product => { %>
+                <span><%= product.product.title %></span>
+              <% }) %>
+            </div>
+            <span class="badge bg-primary rounded-pill"><%= order.products.length  %></span>
+          </li>
+          <% }) %>
+        </ol>
+
       </div>
     </div>
     <div class="row">

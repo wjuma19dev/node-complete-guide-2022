@@ -8,6 +8,10 @@ const path = require('path');
 const rootDir = require('./util/path');
 const port = process.env.PORT | 3000;
 
+const shopRoutes = require('./router/shop');
+const adminRoutes = require('./router/admin');
+const authRoutes = require('./router/auth');
+
 const mongoose = require('mongoose');
 const User = require('./model/user');
 
@@ -40,8 +44,9 @@ if (process.env.NODE_ENV === "development") {
 app.use('/public', express.static(path.join(rootDir, 'public')))
 
 // Routes
-app.use('/admin', require('./router/admin'));
-app.use(require('./router/shop'));
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+app.use('/auth', authRoutes);
 
 app.use((req, res, next) => {
   res.status(404).render('404', {
